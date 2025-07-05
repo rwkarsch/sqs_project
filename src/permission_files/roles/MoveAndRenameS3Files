@@ -1,0 +1,96 @@
+# Poicy Name: AllowSQSDeletMessage:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sqs:DeleteMessage",
+            "Resource": "arn:aws:sqs:us-east-2:899704476894:*" #<-- change this to your SQS queue ARN
+        }
+    ]
+}
+
+# Poicy Name: AllowSQSReceiveMessage:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sqs:ReceiveMessage",
+            "Resource": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" #<-- change this to your SQS queue ARN
+        }
+    ]
+}
+
+# Policy Name: AllowSQSGetQueueAttributes
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sqs:GetQueueAttributes",
+            "Resource": "arn:aws:sqs:us-east-2:899704476894:*"
+        }
+    ]
+}
+
+# Policy Name: AWSLambdaBasicExecutionRole
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:us-east-2:899704476894:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:us-east-2:899704476894:log-group:/aws/lambda/phila-flyers-process-files:*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::phila-flyers-input-bucket/*",
+                "arn:aws:s3:::phila-flyers-output-bucket/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes"
+            ],
+            "Resource": "arn:aws:sqs:us-east-2:899704476894:phila-flyers-file-processing-queue"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "logs:*",
+            "Resource": "*"
+        }
+    ]
+}
+
+#Policy Name: AllowS3ListBucket
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::bucketname" #<-- S3 bucket ARN
+        }
+    ]
+}
+
+#Policy Name: Read_From_S3_Bucket_and_Rename
